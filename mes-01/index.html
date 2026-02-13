@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitMagra Systems - Alejandra Martínez</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a0033 0%, #2d1b4e 50%, #1a0033 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(233, 30, 99, 0.3);
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+        }
+        
+        .logo-container {
+            margin: 30px 0 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-container img {
+            max-width: 350px;
+            height: auto;
+            filter: drop-shadow(0 5px 15px rgba(255, 255, 255, 0.3));
+        }
+        
+        .hero .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+            font-size: 0.95rem;
+        }
+        
+        .hero .meta-info span {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Tab Navigation */
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 30px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tab-btn {
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tab-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.5);
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, #9c27b0, #e91e63);
+            box-shadow: 0 6px 25px rgba(156, 39, 176, 0.6);
+        }
+        
+        /* Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(233, 30, 99, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: rgba(233, 30, 99, 0.6);
+            box-shadow: 0 12px 40px rgba(233, 30, 99, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .card h3 {
+            color: #e91e63;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .card p, .card ul {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+        
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .card ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(233, 30, 99, 0.2);
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .card ul li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #e91e63;
+            font-weight: bold;
+        }
+        
+        .card ul li:last-child {
+            border-bottom: none;
+        }
+        
+        .card ul li strong {
+            color: #e91e63;
+            font-weight: 600;
+        }
+        
+        /* Exercise Cards */
+        .exercise-card {
+            background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.1));
+            border: 2px solid rgba(233, 30, 99, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .exercise-card h4 {
+            color: #e91e63;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .exercise-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .exercise-meta span {
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .exercise-description {
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .safety-note {
+            background: rgba(255, 152, 0, 0.15);
+            border-left: 4px solid #ff9800;
+            padding: 12px 15px;
+            margin: 15px 0;
+            color: #ffb74d;
+            font-size: 0.95rem;
+            border-radius: 8px;
+        }
+        
+        /* Video Button */
+        .video-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .video-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.6);
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+        
+        .video-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        /* Video Wrapper */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            display: none;
+        }
+        
+        .video-wrapper.active {
+            display: block;
+            animation: slideDown 0.4s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+        
+        /* Grid Layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        /* Section Titles */
+        .section-title {
+            font-size: 2rem;
+            color: #e91e63;
+            margin: 40px 0 25px 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid rgba(233, 30, 99, 0.5);
+            font-weight: 700;
+        }
+        
+        /* Week Indicator */
+        .week-indicator {
+            display: inline-block;
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 80px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 3px solid rgba(233, 30, 99, 0.5);
+        }
+        
+        .footer h3 {
+            color: #e91e63;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .footer p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+            
+            .tab-btn {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+            
+            .logo-container img {
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>💪 Alejandra Martínez</h1>
+        <p class="subtitle">Plan Personalizado de Hipertrofia y Performance</p>
+        
+        <div class="logo-container">
+            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/122bf977-c286-4515-9cbe-999d9997b188" alt="FitMagra Logo">
+        </div>
+        
+        <div class="meta-info">
+            <span><strong>Cliente:</strong> Alejandra Martínez</span>
+            <span><strong>Mes:</strong> 02 | Ciclo: 12 FEB - 12 MAR 2026</span>
+            <span><strong>Peso Actual:</strong> 75 kg</span>
+            <span><strong>Objetivo:</strong> Pérdida de grasa + Optimización metabólica</span>
+        </div>
+    </div>
+    
+    <!-- Tab Navigation -->
+    <div class="tab-navigation">
+        <button class="tab-btn active" onclick="openTab('kilocalograma')">
+            📊 Kilocalograma
+        </button>
+        <button class="tab-btn" onclick="openTab('nutricion')">
+            🍴 Nutrición
+        </button>
+        <button class="tab-btn" onclick="openTab('entrenamiento')">
+            🏋️‍♀️ Entrenamiento
+        </button>
+        <button class="tab-btn" onclick="openTab('suplementacion')">
+            💊 Suplementación
+        </button>
+        <button class="tab-btn" onclick="openTab('cheat')">
+            🍕 Cheat Meals
+        </button>
+    </div>
+    
+    <div class="container">
+        <!-- TAB 1: KILOCALOGRAMA -->
+        <div id="kilocalograma" class="tab-content active">
+            <h2 class="section-title">📋 Perfil Inicial</h2>
+            <div class="card">
+                <ul>
+                    <li><strong>Edad:</strong> 24 años</li>
+                    <li><strong>Estatura:</strong> 1.59 m</li>
+                    <li><strong>Peso Actual:</strong> 75 kg</li>
+                    <li><strong>Nivel de Entrenamiento:</strong> Principiante absoluta con alta capacidad de aprendizaje</li>
+                    <li><strong>Condición Especial:</strong> Rodilla izquierda operada hace 2 años (requiere fortalecimiento tendinoso y estabilidad articular)</li>
+                    <li><strong>Disponibilidad:</strong> 4 días por semana</li>
+                    <li><strong>Tipo de Gimnasio:</strong> Gimnasio de barrio con equipamiento básico</li>
+                </ul>
+            </div>
+            
+            <h2 class="section-title">🎯 Objetivo Estratégico</h2>
+            <div class="card">
+                <h3>Recomposición Corporal</h3>
+                <p><strong>Meta Principal:</strong> Pérdida de grasa corporal simultánea con aumento de masa muscular magra.</p>
+                <p><strong>Prioridad Estética:</strong> Desarrollo equilibrado con énfasis en glúteos y muslos.</p>
+                <p><strong>Enfoque Clínico:</strong> Fortalecimiento estructural de la rodilla izquierda mediante trabajo tendinoso progresivo y estabilización articular, evitando impactos agresivos.</p>
+                <p><strong>Duración del Plan:</strong> Progresión estructurada de 4 semanas con adaptación progresiva de cargas e intensidad.</p>
+            </div>
+            
+            <h2 class="section-title">📅 División Semanal</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>DÍA 1 - Lunes</h3>
+                    <p><strong>Tren Inferior</strong></p>
+                    <p>Fuerza técnica moderada con énfasis en glúteos y cuádriceps. Trabajo específico de rodilla.</p>
+                    <p><strong>Duración:</strong> 70-75 min + 35-40 min cardio post-entreno</p>
+                </div>
+                
+                <div class="card">
+                    <h3>DÍA 2 - Miércoles</h3>
+                    <p><strong>Tren Superior</strong></p>
+                    <p>Fuerza técnica moderada. Desarrollo de espalda, pecho y hombros con trabajo de brazos.</p>
+                    <p><strong>Duración:</strong> 70-75 min + 25 min cardio post-entreno</p>
+                </div>
+                
+                <div class="card">
+                    <h3>DÍA 3 - Viernes</h3>
+                    <p><strong>Tren Inferior</strong></p>
+                    <p>Activación metabólica controlada con enfoque en glúteos y estabilidad articular de rodilla.</p>
+                    <p><strong>Duración:</strong> 70-75 min + 35-40 min cardio post-entreno</p>
+                </div>
+                
+                <div class="card">
+                    <h3>DÍA 4 - Domingo</h3>
+                    <p><strong>Tren Superior</strong></p>
+                    <p>Activación metabólica con circuitos de intensidad moderada. Trabajo funcional de brazos y core.</p>
+                    <p><strong>Duración:</strong> 70-75 min + 25 min cardio post-entreno</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 2: NUTRICIÓN -->
+        <div id="nutricion" class="tab-content">
+            <h2 class="section-title">🥗 Guía Nutricional Base</h2>
+            <div class="card">
+                <h3>Principios de Recomposición Corporal</h3>
+                <p><strong>Déficit calórico ligero:</strong> 200-300 calorías bajo mantenimiento (aprox. 1,600-1,800 kcal/día para tu perfil)</p>
+                <p><strong>Distribución de macronutrientes:</strong></p>
+                <ul>
+                    <li><strong>Proteínas:</strong> 1.8-2.0 g por kg de peso corporal (135-150 g/día) - Construcción y preservación muscular</li>
+                    <li><strong>Carbohidratos:</strong> 3-3.5 g por kg (225-260 g/día) - Energía para entrenamiento, priorizar alrededor de sesiones</li>
+                    <li><strong>Grasas saludables:</strong> 0.8-1.0 g por kg (60-75 g/día) - Salud hormonal</li>
+                </ul>
+            </div>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🌅 Desayuno (Pre-Entreno si entrenas AM)</h3>
+                    <ul>
+                        <li><strong>Opción 1:</strong> 3 claras + 1 huevo entero revueltos / 1 taza de avena con frutos rojos / 1 cdta de mantequilla de maní</li>
+                        <li><strong>Opción 2:</strong> Batido: 1 scoop proteína whey / 1 plátano / 1 taza de espinaca / 1 cdta de semillas de chía / Leche de almendras</li>
+                        <li><strong>Opción 3:</strong> 2 rebanadas de pan integral / 100g de pechuga de pavo / aguacate (1/4) / tomate</li>
+                    </ul>
+                    <p><strong>Proteína:</strong> 25-30g | <strong>Carbos:</strong> 40-50g | <strong>Grasas:</strong> 10-15g</p>
+                </div>
+                
+                <div class="card">
+                    <h3>🍽️ Almuerzo (Post-Entreno si entrenas AM)</h3>
+                    <ul>
+                        <li><strong>Opción 1:</strong> 150g pechuga de pollo a la plancha / 1 taza de arroz integral / 2 tazas de vegetales mixtos (brócoli, zanahoria, pimientos) / Ensalada verde</li>
+                        <li><strong>Opción 2:</strong> 150g de salmón al horno / 1 papa mediana asada / Espárragos y calabacín salteados</li>
+                        <li><strong>Opción 3:</strong> 150g de carne magra / 1 taza de quinoa / Ensalada de espinaca con tomate cherry</li>
+                    </ul>
+                    <p><strong>Proteína:</strong> 35-40g | <strong>Carbos:</strong> 50-60g | <strong>Grasas:</strong> 15-20g</p>
+                </div>
+                
+                <div class="card">
+                    <h3>🌙 Cena</h3>
+                    <ul>
+                        <li><strong>Opción 1:</strong> 120g de pescado blanco / Ensalada grande con aguacate (1/4) / 1/2 taza de camote</li>
+                        <li><strong>Opción 2:</strong> 120g de pavo molido / Vegetales salteados abundantes / 1/2 taza de arroz</li>
+                        <li><strong>Opción 3:</strong> Omelette (3 claras + 1 huevo entero) con espinacas y champiñones / Ensalada mixta</li>
+                    </ul>
+                    <p><strong>Proteína:</strong> 30-35g | <strong>Carbos:</strong> 30-40g | <strong>Grasas:</strong> 15-20g</p>
+                </div>
+                
+                <div class="card">
+                    <h3>🍎 Snacks (2-3 por día)</h3>
+                    <ul>
+                        <li><strong>Snack 1:</strong> Yogurt griego natural (170g) con frutos rojos</li>
+                        <li><strong>Snack 2:</strong> 1 manzana + 15 almendras</li>
+                        <li><strong>Snack 3:</strong> 1 scoop de proteína whey con agua</li>
+                        <li><strong>Snack 4:</strong> 2 tortas de arroz con mantequilla de almendras (1 cdta)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Reemplazos Flexibles</h3>
+                <ul>
+                    <li><strong>Proteínas:</strong> Pollo ↔ Pavo ↔ Pescado blanco ↔ Salmón ↔ Atún ↔ Huevos</li>
+                    <li><strong>Carbohidratos:</strong> Arroz integral ↔ Quinoa ↔ Papa ↔ Camote ↔ Avena ↔ Pan integral</li>
+                    <li><strong>Vegetales:</strong> Cualquier vegetal verde (brócoli, espinaca, ejotes, calabacín, espárragos)</li>
+                    <li><strong>Grasas:</strong> Aguacate ↔ Almendras ↔ Nueces ↔ Aceite de oliva ↔ Mantequilla de maní natural</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>💧 Hidratación</h3>
+                <p><strong>Meta diaria:</strong> 2.5-3 litros de agua</p>
+                <ul>
+                    <li>Beber 500ml al despertar</li>
+                    <li>500-700ml durante entrenamiento</li>
+                    <li>300-500ml después de entrenamiento</li>
+                    <li>Distribuir resto durante el día</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>⏰ Timing de Nutrientes (Días de Entrenamiento)</h3>
+                <ul>
+                    <li><strong>Pre-entreno (1-2h antes):</strong> Comida con proteína + carbohidratos moderados (avena, pan integral, fruta)</li>
+                    <li><strong>Intra-entreno:</strong> Agua + BCAAs opcional</li>
+                    <li><strong>Post-entreno (30-60 min):</strong> Proteína rápida (whey) + carbohidratos de rápida absorción (plátano, arroz blanco)</li>
+                    <li><strong>Comida principal post-entreno (1-2h después):</strong> Proteína sólida + carbohidratos complejos + vegetales</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- TAB 3: ENTRENAMIENTO -->
+        <div id="entrenamiento" class="tab-content">
+            <h2 class="section-title">🏋️‍♀️ DÍA 1 - Tren Inferior (Fuerza Técnica Moderada)</h2>
+            <p class="week-indicator">SEMANA 1-2</p>
+            
+            <div class="exercise-card">
+                <h4>1. Activación de Glúteos con Banda Elástica</h4>
+                <div class="exercise-meta">
+                    <span>3 series x 15 reps</span>
+                    <span>Descanso: 45s</span>
+                </div>
+                <p class="exercise-description">Coloca una banda elástica sobre las rodillas. En posición de pie con pies al ancho de hombros, realiza abducción lateral de cadera (abre las piernas contra la resistencia de la banda). Mantén la contracción del glúteo 2 segundos en cada repetición.</p>
+                <button class="video-btn" onclick="toggleVideo('video1')">
+                    📹 Ver Técnica
+                </button>
+                <div class="video-wrapper" id="video1">
+                    <iframe src="https://www.youtube.com/embed/-e7Ab1p8TD4?start=2719" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="safety-note">⚠️ Mantén ligera flexión de rodillas para proteger articulación. Evita hiperextensión.</p>
+            </div>
+            
+            <div class="exercise-card">
+                <h4>2. Sentadilla Sumo con Mancuerna</h4>
+                <div class="exercise-meta">
+                    <span>4 series x 12 reps</span>
+                    <span>Descanso: 90s</span>
+                    <span>Peso: 8-10 kg</span>
+                </div>
+                <p class="exercise-description">Pies más anchos que los hombros, puntas ligeramente hacia afuera. Sostén una mancuerna con ambas manos a la altura del pecho. Desciende manteniendo espalda recta hasta 90° de flexión de rodilla. Empuja a través de los talones para subir, contrayendo glúteos al finalizar el movimiento.</p>
+                <button class="video-btn" onclick="toggleVideo('video2')">
+                    📹 Ver Técnica
+                </button>
+                <div class="video-wrapper" id="video2">
+                    <iframe src="https://www.youtube.com/embed/-e7Ab1p8TD4?start=39" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="safety-note">⚠️ RODILLA: No bajar más de 90°. Rodillas alineadas con puntas de pies, no colapsar hacia adentro.</p>
+            </div>
+            
+            <div class="exercise-card">
+                <h4>3. Puente de Glúteos (Hip Thrust)</h4>
+                <div class="exercise-meta">
+                    <span>4 series x 15 reps</span>
+                    <span>Descanso: 60s</span>
+                </div>
+                <p class="exercise-description">Acostada boca arriba, rodillas flexionadas a 90°, pies apoyados firmemente. Eleva caderas apretando glúteos hasta formar línea recta desde hombros hasta rodillas. Mantén 2 segundos arriba, desciende controladamente sin tocar el suelo.</p>
+                <button class="video-btn" onclick="toggleVideo('video3')">
+                    📹 Ver Técnica
+                </button>
+                <div class="video-wrapper" id="video3">
+                    <iframe src="https://www.youtube.com/embed/-e7Ab1p8TD4?start=2739" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="safety-note">✅ Ideal para rodilla operada: cero impacto, máxima activación de glúteos.</p>
+            </div>
+            
+            <div class="exercise-card">
+                <h4>4. Zancada Rumana (RDL con Mancuernas)</h4>
+                <div class="exercise-meta">
+                    <span>3 series x 10 reps por pierna</span>
+                    <span>Descanso: 90s</span>
+                    <span>Peso: 5-8 kg por mano</span>
+                </div>
+                <p class="exercise-description">De pie con mancuernas a los lados. Manteniendo espalda recta y rodillas ligeramente flexionadas, inclina el tronco hacia adelante desde la cadera mientras extiendes una pierna atrás. Siente el estiramiento en isquiotibiales. Regresa contrayendo glúteos e isquios.</p>
+                <button class="video-btn" onclick="toggleVideo('video4')">
+                    📹 Ver Técnica
+                </button>
+                <div class="video-wrapper" id="video4">
+                    <iframe src="https://www.youtube.com/embed/ygFvuqi5b7M?start=128" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="safety-note">⚠️ RODILLA: Mantener rodilla de apoyo ligeramente flexionada, no rígida. Control total del movimiento.</p>
+            </div>
+            
+            <div class="exercise-card">
+                <h4>5. Extensión de Pierna en Máquina (Modificada)</h4>
+                <div class="exercise-meta">
+                    <span>3 series x 12-15 reps</span>
+                    <span>Descanso: 60s</span>
+                    <span>Peso: Ligero</span>
+                </div>
+                <p class="exercise-description">Sentada en máquina de extensión, ajusta respaldo para ángulo de 90°. Extiende ambas piernas hasta casi completar el movimiento (no hiperextender). Baja controladamente. Enfócate en contraer cuádriceps (vasto medial interno).</p>
+                <button class="video-btn" onclick="toggleVideo('video5')">
+                    📹 Ver Técnica
+                </button>
+                <div class="video-wrapper" id="video5">
+                    <iframe src="https://www.youtube.com/embed/ygFvuqi5b7M?start=168" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="safety-note">⚠️ RODILLA OPERADA: Rango de movimiento reducido (0-90°), peso ligero. Fortalecimiento tendinoso progresivo.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Cardio Post-Entrenamiento DÍA 1</h3>
+                <p><strong>Modalidad:</strong> Caminata inclinada en treadmill</p>
+                <p><strong>Duración:</strong> 35-40 minutos</p>
+                <p><strong>Intensidad:</strong> Inclinación 8-10%, velocidad 5.0-5.5 km/h</p>
+                <p><strong>Beneficio:</strong> Quema de grasa sin impacto agresivo en rodilla operada. Trabajo cardiovascular en zona aeróbica.</p>
+            </div>
+            
+            <p class="week-indicator">SEMANA 3-4 - PROGRESIÓN</p>
+            <div class="card">
+                <h3>Incrementos Progresivos - Día 1</h3>
+                <ul>
+                    <li><strong>Sentadilla Sumo:</strong> 4 series x 10 reps (aumentar peso 2-3 kg)</li>
+                    <li><strong>Hip Thrust:</strong> 4 series x 12 reps + disco de 5-10 kg sobre cadera</li>
+                    <li><strong>RDL:</strong> 3 series x 12 reps por pierna (aumentar peso 2 kg por mano)</li>
+                    <li><strong>Extensión Pierna:</strong> 3 series x 15 reps (aumentar peso gradualmente)</li>
+                </ul>
+            </div>
+            
+            <p class="week-indicator">SEMANA 3-4 - PROGRESIÓN</p>
+            <div class="card">
+                <h3>Incrementos Progresivos - Día 2</h3>
+                <ul>
+                    <li><strong>Press de Pecho:</strong> 4 series x 10 reps (aumentar peso 2 kg por mano)</li>
+                    <li><strong>Remo:</strong> 4 series x 10 reps por brazo (aumentar peso 2 kg)</li>
+                    <li><strong>Press de Hombro:</strong> 3 series x 10 reps (aumentar peso 1-2 kg por mano)</li>
+                    <li><strong>Elevaciones Laterales:</strong> 3 series x 12 reps (mantener peso, mejorar técnica)</li>
+                    <li><strong>Curl de Bíceps:</strong> 3 series x 10 reps por brazo (aumentar peso 1 kg por mano)</li>
+                    <li><strong>Extensión Tríceps:</strong> 3 series x 12 reps (aumentar peso 1-2 kg)</li>
+                </ul>
+            </div>
+            
+            <h2 class="section-title">💪 DÍA 2 - Tren Superior (Fuerza Técnica Moderada)</h2>
+            <p class="week-indicator">SEMANA 1-2</p>
+            
+            <div class="exercise-card">
+                <h4>1. Press de Pecho con Mancuernas en Banco</h4>
+                <div class="exercise-meta">
+                    <span>4 series x 12 reps</span>
+                    <span>Descanso: 90s</span>
+                    <span>Peso: 5-8 kg por mano</span>
+                </div>
+                <p class="exercise-description">Acostada en banco plano, mancuernas a la altura del pecho con codos a 45° del cuerpo. Empuja hacia arriba hasta extender brazos completamente, contrae pectorales arriba. Baja controladamente hasta sentir estiramiento en pecho.</p>
+                <button class="video-btn" onclick="toggleVideo('video6')">
+                    📹 Ver Técnica
+                </button>
+                <div class="video-wrapper" id="video6">
+                    <iframe src="https://www.youtube.com/embed/ygFvuqi5b7M?start=89" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <h4>2. Remo con Mancuerna a Un Brazo</h4>
+                <div class="exercise-meta">
+                    <span>4 series x 12 reps por brazo</span>
+                    <span>Descanso: 60s</span>
+                    <span>Peso: 6-10 kg</span>
+                </div>
+                <p class="exercise-description">Apoya rodilla y mano en banco, espalda paralela al suelo. Con mancuerna en mano libre, jala hacia cadera apretando escápula. Codo pegado al cuerpo, contrae dorsal. Baja controladamente estirando completamente.</p>
+                <button class="video-btn" onclick="toggleVideo('video7')">
+                    📹 Ver Técnica
+                </button>
+                <div class="video-wrapper" id="video7">
+                    <iframe src="https://www.youtube.com/embed/ygFvuqi5b7M?start=118" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <h4>3. Press de Hombro con Mancuernas Sentada</h4>
+                <div class="exercise-meta">
+                    <span>3 series x 12 reps</span>
+                    <span>Descanso: 75s</span>
+                    <span>Peso: 4-6 kg por mano</span>
+                </div>
+                <p class="exercise-description">Sentada en banco con respaldo vertical, mancuernas a altura de hombros. Empuja hacia arriba hasta extensión completa sin juntar mancuernas arriba. Baja controladamente hasta ángulo de 90° en codos.</p>
+                <button class="video-btn" onclick="toggleVideo('video8')">
+                    📹 Ver Técnica
+                </button>
+                <div class="video-wrapper" id="video8">
+                    <iframe src="https://www.youtube.com/embed/ygFvuqi5b7M?start=128" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <h4>4. Elevaciones Laterales con Mancuernas</h4>
+                <div class="exercise-meta">
+                    <span>3 series x 15 reps</span>
+                    <span>Descanso: 60s</span>
+                    <span>Peso: 3-5 kg por mano</span>
+                </div>
+                <p class="exercise-description">De pie con mancuernas a los lados, palmas mirando hacia el cuerpo. Eleva los brazos lateralmente hasta la altura de los hombros (formar una "T"). Mantén codos ligeramente flexionados. Baja controladamente resistiendo el peso.</p>
+                <button class="video-btn" onclick="toggleVideo('video9')">
+                    📹 Ver Técnica
+                </button>
+                <div class="video-wrapper" id="video9">
+                    <iframe src="https://www.youtube.com/embed/ygFvuqi5b7M?start=148" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="safety-note">💡 Enfócate en deltoides medios. No balancear el cuerpo, movimiento controlado.</p>
+            </div>
+            
+            <div class="exercise-card">
+                <h4>5. Curl de Bíceps con Mancuernas Alterno</h4>
+                <div class="exercise-meta">
+                    <span>3 series x 12 reps por brazo</span>
+                    <span>Descanso: 60s</span>
+                    <span>Peso: 5-7 kg por mano</span>
+                </div>
+                <p class="exercise-description">De pie, mancuernas a los lados con palmas hacia adelante. Flexiona codo llevando mancuerna hacia hombro, alternando brazos. Mantén codos fijos pegados al torso. Contrae bíceps en la parte superior, baja controladamente.</p>
+                <button class="video-btn" onclick="toggleVideo('video10')">
+                    📹 Ver Técnica
+                </button>
+                <div class="video-wrapper" id="video10">
+                    <iframe src="https://www.youtube.com/embed/ygFvuqi5b7M?start=158" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <h4>6. Extensiones de Tríceps sobre la Cabeza (con Mancuerna)</h4>
+                <div class="exercise-meta">
+                    <span>3 series x 15 reps</span>
+                    <span>Descanso: 60s</span>
+                    <span>Peso: 5-8 kg</span>
+                </div>
+                <p class="exercise-description">De pie o sentada, sostén una mancuerna con ambas manos sobre la cabeza, brazos extendidos. Flexiona codos bajando la mancuerna detrás de la cabeza. Extiende brazos nuevamente contrayendo tríceps. Mantén codos apuntando hacia adelante.</p>
+                <button class="video-btn" onclick="toggleVideo('video11')">
+                    📹 Ver Técnica
+                </button>
+                <div class="video-wrapper" id="video11">
+                    <iframe src="https://www.youtube.com/embed/ygFvuqi5b7M?start=178" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="safety-note">⚠️ Controla el rango de movimiento. No arquear la espalda baja.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Cardio Post-Entrenamiento DÍA 2</h3>
+                <p><strong>Modalidad:</strong> Elíptica o bicicleta estática</p>
+                <p><strong>Duración:</strong> 25 minutos</p>
+                <p><strong>Intensidad:</strong> Moderada (60-70% frecuencia cardíaca máxima)</p>
+            </div>
+            
+            <h2 class="section-title">🦵 Trabajo Especial Rodilla Operada</h2>
+            <div class="card">
+                <h3>Protocolo de Fortalecimiento Tendinoso</h3>
+                <p><strong>Frecuencia:</strong> 3 veces por semana (Día 1, 3 y en casa)</p>
+                <p><strong>Momento:</strong> Después del calentamiento general, antes del entrenamiento principal</p>
+            </div>
+            
+            <div class="exercise-card">
+                <h4>1. Contracciones Isométricas de Cuádriceps</h4>
+                <div class="exercise-meta">
+                    <span>3 series x 15 contracciones</span>
+                    <span>Hold: 5 segundos</span>
+                </div>
+                <p class="exercise-description">Sentada o acostada, pierna extendida. Contrae cuádriceps empujando rodilla hacia el suelo. Rótula se desliza hacia el muslo. Mantén contracción máxima.</p>
+                <button class="video-btn" onclick="toggleVideo('video12')">
+                    📹 Ver Técnica
+                </button>
+                <div class="video-wrapper" id="video12">
+                    <iframe src="https://www.youtube.com/embed/qhmSMFaXmmw?start=689" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <h4>2. Mini Sentadillas (0-45° flexión)</h4>
+                <div class="exercise-meta">
+                    <span>3 series x 10 reps</span>
+                    <span>Hold: 10 segundos abajo</span>
+                </div>
+                <p class="exercise-description">De pie con apoyo. Desciende solo hasta 45° de flexión (rodillas no pasan puntas de pies). Mantén posición isométrica. Sube lentamente.</p>
+                <p class="safety-note">✅ Rango seguro para rodilla operada. Fortalece sin comprometer articulación.</p>
+            </div>
+        </div>
+        
+        <!-- TAB 4: SUPLEMENTACIÓN -->
+        <div id="suplementacion" class="tab-content">
+            <h2 class="section-title">💊 Suplementación Estratégica</h2>
+            
+            <div class="card">
+                <h3>🔥 Burner Stack (Termogénico)</h3>
+                <p><strong>Función:</strong> Potencia el déficit calórico incrementando ligeramente el metabolismo basal y mejorando la oxidación de grasas durante el ejercicio.</p>
+                <p><strong>Ingredientes clave típicos:</strong> Cafeína, extracto de té verde, L-carnitina, pimienta de cayena</p>
+                <p><strong>Dosis sugerida:</strong> Según indicación del producto, generalmente 1 dosis 30 minutos antes del entrenamiento matutino</p>
+                <p><strong>Precaución:</strong> No consumir después de las 3 PM para evitar interferencia con el sueño</p>
+            </div>
+            
+            <div class="card">
+                <h3>💪 Creatina Monohidratada (OPCIONAL)</h3>
+                <p><strong>Beneficio:</strong> (Opcional - ayuda a la construcción muscular y mejora la recuperación celular. Incrementa ligeramente la fuerza en rangos de 6-12 repeticiones y favorece la retención de agua intracelular, lo que mejora la síntesis proteica)</p>
+                <p><strong>Dosis:</strong> 5g diarios en cualquier momento del día, preferiblemente con comida que contenga carbohidratos</p>
+                <p><strong>Nota:</strong> Puede generar retención de agua (1-2 kg), no confundir con ganancia de grasa</p>
+                <p><strong>Seguridad:</strong> Ampliamente estudiada, segura para uso continuo</p>
+            </div>
+            
+            <div class="card">
+                <h3>🦴 Colágeno Hidrolizado + Vitamina C (OPCIONAL)</h3>
+                <p><strong>Beneficio:</strong> (Opcional - apoya la salud del tendón y la recuperación de la rodilla operada. El colágeno hidrolizado, especialmente cuando se combina con vitamina C, contribuye a la síntesis de colágeno en tejidos conectivos)</p>
+                <p><strong>Dosis:</strong> 10-15g de colágeno hidrolizado + 50-100mg de vitamina C</p>
+                <p><strong>Momento:</strong> 30-60 minutos antes del entrenamiento para maximizar incorporación a tejidos conectivos</p>
+                <p><strong>Específico para:</strong> Soporte articular de rodilla operada, salud de tendones y ligamentos</p>
+            </div>
+            
+            <div class="card">
+                <h3>Suplementos Base Recomendados</h3>
+                <ul>
+                    <li><strong>Proteína Whey:</strong> 1-2 scoops/día para alcanzar meta proteica (25-30g por scoop)</li>
+                    <li><strong>Multivitamínico:</strong> 1 dosis diaria con desayuno (cubre micronutrientes en déficit calórico)</li>
+                    <li><strong>Omega-3 (Aceite de Pescado):</strong> 2-3g/día con comidas (salud cardiovascular, reducción de inflamación)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- TAB 5: CHEAT MEALS -->
+        <div id="cheat" class="tab-content">
+            <h2 class="section-title">🍕 Protocolo de Cheat Meals</h2>
+            
+            <div class="card">
+                <h3>Filosofía del Refeed Estratégico</h3>
+                <p>Los cheat meals no son "romper la dieta", son herramientas metabólicas estratégicas para:</p>
+                <ul>
+                    <li><strong>Repleción de glucógeno muscular:</strong> Mejora rendimiento en entrenamientos posteriores</li>
+                    <li><strong>Regulación hormonal:</strong> Previene caída excesiva de leptina (hormona de saciedad)</li>
+                    <li><strong>Adherencia psicológica:</strong> Previene sensación de restricción extrema</li>
+                    <li><strong>Boost metabólico temporal:</strong> Incremento transitorio del gasto energético</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>📅 Frecuencia Recomendada</h3>
+                <p><strong>Durante las primeras 4 semanas:</strong> 1 cheat meal cada 7-10 días</p>
+                <p><strong>Timing ideal:</strong> Después de un día de entrenamiento intenso de tren inferior (Día 1 o Día 3)</p>
+                <p><strong>¿Por qué?</strong> Los músculos grandes (piernas/glúteos) utilizarán preferentemente los carbohidratos para recuperación, minimizando almacenamiento como grasa.</p>
+            </div>
+            
+            <div class="card">
+                <h3>🎯 Reglas del Cheat Meal</h3>
+                <ul>
+                    <li><strong>1 comida, NO 1 día completo:</strong> El refeed es una comida específica, no 24 horas sin control</li>
+                    <li><strong>Priorizar carbohidratos sobre grasas:</strong> Pizza, pasta, sushi, hamburguesa con papas > postres ultra-procesados</li>
+                    <li><strong>Mantener proteína adecuada:</strong> Incluir fuente proteica en el cheat meal (carne, pollo, pescado)</li>
+                    <li><strong>Comer hasta saciedad, no hasta malestar:</strong> Disfruta sin llegar a indigestión</li>
+                    <li><strong>Sin culpa:</strong> Es parte del plan, no un fracaso</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>🍔 Opciones de Cheat Meals Inteligentes</h3>
+                <ul>
+                    <li><strong>Pizza mediana:</strong> Con proteína (pollo, jamón, carne) + vegetales</li>
+                    <li><strong>Hamburguesa completa:</strong> Con papas fritas (porción moderada)</li>
+                    <li><strong>Pasta italiana:</strong> Carbonara, bolognesa, o alfredo con pan de ajo</li>
+                    <li><strong>Sushi Roll:</strong> 10-12 piezas variadas + edamame</li>
+                    <li><strong>Tacos o burritos:</strong> 3-4 unidades con guacamole y chips</li>
+                    <li><strong>Plato típico colombiano:</strong> Bandeja paisa moderada, ajiaco, sancocho</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>⚠️ Lo que NO es un Cheat Meal Estratégico</h3>
+                <ul>
+                    <li>Comida chatarra + alcohol en exceso (el alcohol bloquea oxidación de grasas 24-48h)</li>
+                    <li>Atracones descontrolados con malestar digestivo</li>
+                    <li>Postres ultra-procesados como única comida (helado gigante, tortas enteras)</li>
+                    <li>Extenderlo a todo el fin de semana</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>🔄 Día Siguiente al Cheat Meal</h3>
+                <p><strong>NO compensar con restricción extrema.</strong> Vuelve a tu plan nutricional normal:</p>
+                <ul>
+                    <li>Desayuno proteico ligero</li>
+                    <li>Hidratación aumentada (3L de agua)</li>
+                    <li>Entrenamiento programado con normalidad</li>
+                    <li>Déficit calórico regular (no reducir más calorías)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>📊 Ajuste según Progreso</h3>
+                <p><strong>Si la pérdida de grasa se estanca 2+ semanas:</strong></p>
+                <ul>
+                    <li>Considerar hacer un refeed cada 5-7 días temporalmente</li>
+                    <li>Puede ayudar a "resetear" metabolismo</li>
+                </ul>
+                <p><strong>Si progresas muy rápido:</strong></p>
+                <ul>
+                    <li>Mantener frecuencia de 1 cada 7-10 días</li>
+                    <li>Evita aumentar frecuencia innecesariamente</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <h3>FitMagra Systems</h3>
+        <p>High Performance Coaching</p>
+        <p style="margin-top: 20px; color: #e91e63; font-weight: 600;">© 2026</p>
+        <p style="margin-top: 30px; font-size: 0.9rem; font-style: italic;">"La disciplina es hacer lo que sabes que debes hacer, incluso cuando no tienes ganas."</p>
+    </div>
+    
+    <script>
+        function openTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Remove active class from all buttons
+            const tabButtons = document.getElementsByClassName('tab-btn');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            // Show selected tab and mark button as active
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function toggleVideo(videoId) {
+            const video = document.getElementById(videoId);
+            video.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
